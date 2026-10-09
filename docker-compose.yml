@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+
+  db:
+    image: mysql:5.7
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: root98
+      MYSQL_DATABASE: board
+      MYSQL_USER: board
+      MYSQL_PASSWORD: board98
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d:ro
+
+  web:
+    build: .
+    platform: linux/amd64
+    ports:
+      - "8082:80"
+    depends_on:
+      - db
